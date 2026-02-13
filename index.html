@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://2015kaito8169.github.io">
+    <title>kaiprogran | Official Documentation</title>
+    <style>
+        :root {
+            --bg: #000000;
+            --card-bg: #1c1c1e;
+            --accent: #0A84FF;
+            --text-main: #f5f5f7;
+            --text-sub: #86868b;
+            --code-text: #64D2FF;
+            --border: #38383a;
+            --gold: #FFD60A;
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text-main); line-height: 1.6; margin: 0; padding: 0; scroll-behavior: smooth; }
+        
+        header { height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle at center, #1c1c1e 0%, #000 100%); text-align: center; border-bottom: 1px solid var(--border); }
+        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; background: linear-gradient(135deg, #fff 0%, #86868b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -2px; }
+        .hero-sub { color: var(--text-sub); font-size: 1.5rem; margin-top: 10px; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 80px 20px; }
+
+        section { margin-bottom: 100px; background: var(--card-bg); padding: 40px; border-radius: 28px; border: 1px solid var(--border); }
+        h2 { font-size: 2rem; border-left: 6px solid var(--accent); padding-left: 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; }
+        
+        /* ゲーム例専用スタイル */
+        .game-idea { background: rgba(10, 132, 255, 0.1); border: 1px solid var(--accent); padding: 20px; border-radius: 15px; margin-top: 20px; }
+        .game-idea h3 { color: var(--accent); margin-top: 0; }
+
+        /* 保存スロットスタイル */
+        .slot-badge { background: #333; color: var(--gold); padding: 4px 10px; border-radius: 6px; font-size: 0.9rem; border: 1px solid var(--gold); }
+
+        .code-wrapper { position: relative; background: #000; padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin: 20px 0; }
+        .code-block { font-family: "SF Mono", "Fira Code", monospace; color: var(--code-text); white-space: pre-wrap; font-size: 14px; }
+        .copy-btn { position: absolute; top: 10px; right: 10px; background: var(--accent); color: white; border: none; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.2s; }
+        .copy-btn:hover { background: #0071e3; transform: scale(1.05); }
+
+        .btn-link { display: inline-block; background: var(--accent); color: white; text-decoration: none; padding: 15px 40px; border-radius: 30px; font-weight: bold; margin-top: 40px; transition: 0.3s; }
+        .btn-link:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(10, 132, 255, 0.3); }
+
+        footer { text-align: center; padding: 80px 40px; color: var(--text-sub); border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>kaiprogran</h1>
+    <p class="hero-sub">キミの日本語が、最強のコードになる。</p>
+    <a href="#manual" class="btn-link">学習を開始する</a>
+</header>
+
+<div class="container" id="manual">
+
+    <!-- 保存機能の紹介 -->
+    <section>
+        <h2>💾 3面保存機能</h2>
+        <p>エディタには強力な保存機能が備わっています。ブラウザを閉じてもプログラムは消えません！</p>
+        <div style="display: flex; gap: 10px; margin: 20px 0;">
+            <span class="slot-badge">スロット 1: 練習用</span>
+            <span class="slot-badge">スロット 2: 本番用</span>
+            <span class="slot-badge">スロット 3: テスト用</span>
+        </div>
+        <p>「保存」ボタンで記録し、「読込」ボタンでいつでも続きから再開できます。<br>
+        <small style="color: #ff453a;">※保存データは、キミが使っているブラウザの中に安全に保管されるよ！</small></p>
+    </section>
+
+    <!-- 基本機能 (短縮) -->
+    <section>
+        <h2>🛠 基本コマンド一覧</h2>
+        <p>コピーボタンで、すぐにIDEに貼り付けて試せるよ！</p>
+        
+        <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+            <div class="code-block">disp("こんにちは") // ログ表示
+cav("あぶない！") // 警告ログ
+ere("しっぱい...") // エラーログ
+ent,名前 // 入力を受け取る
+{{ "2" }} // 2秒待つ</div>
+        </div>
+    </section>
+
+    <!-- ゲームで使えるリスト機能 -->
+    <section>
+        <h2>🎒 リストでアイテム管理</h2>
+        <p>RPGの「もちもの」や「得点ランキング」に最適！</p>
+        <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+            <div class="code-block">{もちもの}["やくそう", "どくけし"]
+{もちもの,push="はがねのつるぎ"}
+disp({もちもの="2"}) // 剣を取り出す</div>
+        </div>
+    </section>
+
+    <!-- ゲーム案セクション -->
+    <section>
+        <h2>🎮 kaiprogranで作れるゲーム</h2>
+        <p>日本語で書けるから、アイデアがそのまま形になる！</p>
+        
+        <div class="game-idea">
+            <h3>1. 計算バトルゲーム</h3>
+            <p><code>ent</code> で回答を入力し、<code>if</code> で正解か判定。<code>cal</code> でダメージ計算をすれば立派なバトルゲームに！</p>
+        </div>
+
+        <div class="game-idea" style="margin-top:20px;">
+            <h3>2. タイピング練習ツール</h3>
+            <p><code>keypush</code> を使って、指定されたキーを素早く押すゲーム。<code>{{ }}</code> で制限時間を作ってみよう！</p>
+        </div>
+
+        <div class="game-idea" style="margin-top:20px;">
+            <h3>3. 暗号メーカー</h3>
+            <p><code>++StartScript++</code> でJSの数学機能（乱数など）をお取り寄せして、自分だけの秘密の暗号を作っちゃおう。</p>
+        </div>
+    </section>
+
+    <!-- コピーの極意 -->
+    <section>
+        <h2>✨ コピーの極意 (icp)</h2>
+        <p>作ったコードを友達に自慢したり、ログを保存したりする時に使おう！</p>
+        <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+            <div class="code-block">icp("""script""") // 今書いてる全コードをコピー！
+icp("""log""") // これまでのログを全コピー！</div>
+        </div>
+    </section>
+
+    <div style="text-align: center;">
+        <p>準備はいい？</p>
+        <a href="https://2015kaito8169.github.io" class="btn-link">IDEを起動する</a>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2024 kaiprogran | Designed by kaito</p>
+</footer>
+
+<script>
+    function copyCode(btn) {
+        const code = btn.nextElementSibling.innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            const originalText = btn.innerText;
+            btn.innerText = "COPIED!";
+            btn.style.background = "#30d158";
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = "#0A84FF";
+            }, 1500);
+        });
+    }
+</script>
+
+</body>
+</html>
