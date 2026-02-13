@@ -125,19 +125,42 @@ disp({もちもの="2"}) // 剣を取り出す</div>
             <button class="copy-btn" onclick="copyCode(this)">COPY</button>
             <div class="code-block">icp("""script""") // 今書いてる全コードをコピー！
 icp("""log""") // これまでのログを全コピー！</div>
+         <!-- ページの最後、footerの直前にこれを差し込みます -->
+    <section id="creator-message" style="background: rgba(88, 166, 255, 0.05); border: 1px solid var(--accent); margin-top: 150px; padding: 60px; border-radius: 40px; text-align: center;">
+        <h2 style="border: none; padding: 0; margin-bottom: 50px; font-size: 3rem;">Creator's Story</h2>
+        
+        <div style="max-width: 600px; margin: 0 auto; text-align: left; line-height: 2.2; font-size: 1.1rem; color: #e6edf3;">
+            <p>作者より</p>
+            <p>私はjavascriptやHTMLなどの開発に興味を持って始めました<br>
+            最初は覚えるのが大変でした<br>
+            ただししばらくしたら慣れて来ました</p>
+
+            <p>皆さんはscratchというプログラミング言語をご存知ですか?<br>
+            ブロックでプログラムを組む直感的でやりやすいプログラミング言語です</p>
+
+            <p>いろいろなものを作ってるうちにいろいろな発見がありました<br>
+            その発見をしてるうちにふと思ったのです<br>
+            「わたしにもプログラミング言語が作れないか」</p>
+
+            <p>そう思いました。みなさん 楽しんでいただけてるでしょうか<br>
+            なるべく簡単に 直感的に触れる言語です<br>
+            少し軽いものしかできませんがこれからも機能を増やしていくつもりです</p>
+
+            <p>楽しんでプログラミングしてくださいね</p>
+            
+            <p style="text-align: right; font-size: 1.8rem; color: var(--accent); font-family: 'Brush Script MT', cursive; margin-top: 40px;">
+                作者より
+            </p>
         </div>
     </section>
 
-    <div style="text-align: center;">
-        <p>準備はいい？</p>
-        <a href="https://2015kaito8169.github.io/kaiprogran/" class="btn-link">IDEを起動する</a>
+    <div style="text-align: center; margin-bottom: 100px;">
+        <a href="https://2015kaito8169.github.io/kaiprogran/" class="more-btn">さあ、君にもできるよ！kaiprogranを始めよう</a>
     </div>
 
-</div>
-
-<footer>
-    <p>&copy; 2024 kaiprogran | Designed by kaito</p>
-</footer>
+    <footer style="padding: 50px; border-top: 1px solid #333; text-align: center; color: var(--sub);">
+        &copy; 2024 kaiprogran | Created with Passion by kaito
+    </footer>
 
 <script>
     function copyCode(btn) {
