@@ -3,191 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ファビコン設定：あなたのkaidesリポジトリから取得 -->
+    <!-- ファビコン設定 -->
     <link rel="icon" type="image/png" href="https://2015kaito8169.github.io">
-    <title>kaiprogranIDE</title>
+    <title>kaiprogran | Official Manual</title>
     <style>
-        :root { --bg: #0d1117; --panel: #161b22; --accent: #58a6ff; --text: #c9d1d9; }
-        body { font-family: 'Consolas', 'Fira Code', monospace; background: var(--bg); color: var(--text); margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        header { background: var(--panel); padding: 10px 20px; border-bottom: 1px solid #30363d; display: flex; justify-content: space-between; align-items: center; }
-        .main-layout { display: flex; flex: 1; overflow: hidden; padding: 10px; gap: 10px; }
-        .editor-section { flex: 1.2; display: flex; flex-direction: column; }
-        .log-section { flex: 0.8; display: flex; flex-direction: column; background: #000; border-radius: 8px; border: 1px solid #30363d; overflow: hidden; }
-        textarea { flex: 1; background: var(--panel); color: #e6edf3; border: 1px solid #30363d; padding: 15px; font-size: 16px; border-radius: 8px; outline: none; resize: none; line-height: 1.5; }
-        .toolbar { margin-bottom: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
-        button { padding: 6px 12px; border-radius: 6px; border: 1px solid #30363d; cursor: pointer; font-weight: bold; background: #21262d; color: #c9d1d9; font-size: 13px; transition: 0.2s; }
-        button:hover { background: #30363d; }
-        #runBtn { background: #238636; color: white; border: none; }
-        #runBtn:hover { background: #2ea043; }
-        #logArea { flex: 1; padding: 15px; overflow-y: auto; white-space: pre-wrap; font-size: 14px; line-height: 1.6; }
-        .normal { color: #7ee787; } .warn { color: #d29922; } .error { color: #f85149; }
-        #helpModal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; height: 85%; background: var(--panel); border: 2px solid var(--accent); z-index: 1000; padding: 25px; border-radius: 12px; overflow-y: auto; }
-        .more-btn { background: var(--accent); color: #000; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; margin-top: 15px; display: inline-block; text-decoration: none; }
+        :root {
+            --bg: #000; --card: #1c1c1e; --accent: #0A84FF; --text: #f5f5f7; --sub: #86868b; --code: #64D2FF; --border: #38383a;
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; margin: 0; scroll-behavior: smooth; }
+        
+        header { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle at center, #1c1c1e 0%, #000 100%); text-align: center; }
+        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; background: linear-gradient(135deg, #fff 0%, #86868b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+        section { margin-bottom: 80px; background: var(--card); padding: 40px; border-radius: 28px; border: 1px solid var(--border); }
+        h2 { font-size: 2rem; color: var(--accent); border-left: 6px solid var(--accent); padding-left: 20px; margin-bottom: 30px; }
+        h3 { font-size: 1.5rem; color: #fff; margin-top: 30px; }
+
+        /* コードブロック & コピーボタン */
+        .code-wrapper { position: relative; background: #000; padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin: 20px 0; }
+        .code-block { font-family: "SF Mono", "Fira Code", monospace; color: var(--code); white-space: pre-wrap; font-size: 14px; }
+        .copy-btn { position: absolute; top: 10px; right: 10px; background: var(--accent); color: white; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; }
+        
+        .step { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin: 10px 0; border-left: 4px solid var(--accent); }
+        .alert { padding: 15px; border-radius: 10px; margin: 10px 0; font-weight: bold; border: 1px solid rgba(255,69,58,0.5); background: rgba(255,69,58,0.1); color: #FF453A; }
+
+        /* ナビゲーション */
+        nav { position: sticky; top: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); padding: 15px; text-align: center; z-index: 100; border-bottom: 1px solid var(--border); }
+        nav a { color: var(--text); margin: 0 15px; text-decoration: none; font-size: 0.9rem; font-weight: bold; }
+        nav a:hover { color: var(--accent); }
+
+        .btn-link { display: inline-block; background: var(--accent); color: white; text-decoration: none; padding: 15px 40px; border-radius: 30px; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        .btn-link:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(10, 132, 255, 0.3); }
+
+        footer { text-align: center; padding: 80px 40px; color: var(--sub); border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
 
+<nav>
+    <a href="#basic">基本</a>
+    <a href="#logic">計算・判断</a>
+    <a href="#advanced">応用</a>
+    <a href="#game">ゲーム制作</a>
+    <a href="#creator-message">作者より</a>
+</nav>
+
 <header>
-    <div style="font-weight:bold; color:var(--accent); font-size: 18px;">kaiprogran IDE v1.4</div>
-    <button onclick="toggleHelp()" style="background:#ffcb6b; color:#000; border:none;">説明を見る</button>
+    <h1>kaiprogran</h1>
+    <p style="color:var(--sub); font-size: 1.2rem;">日本語がコードに変わる、新世代のIDE。</p>
 </header>
 
-<div class="main-layout">
-    <div class="editor-section">
-        <div class="toolbar">
-            <button id="runBtn" onclick="runKaiPro()">▶ 実行 (RUN)</button>
-            <button onclick="saveData(1)">💾 1</button><button onclick="saveData(2)">💾 2</button><button onclick="saveData(3)">💾 3</button>
-            <button onclick="loadData(1)">📂 1</button><button onclick="loadData(2)">📂 2</button><button onclick="loadData(3)">📂 3</button>
-            <button onclick="copyRaw('script')">コード複製</button>
-            <button onclick="copyRaw('log')">ログ複製</button>
+<div class="container">
+
+    <!-- 基本コマンド -->
+    <section id="basic">
+        <h2>01. 基本の出力</h2>
+        <p>3色のログを使い分けて、プログラムの動きを視覚化しましょう。</p>
+        <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+            <div class="code-block">disp("こんにちは") // 通常(緑)
+cav("注意してください") // 警告(黄)
+ere("エラー発生") // エラー(赤)
+ent,名前 // ユーザー入力を変数に保存</div>
         </div>
-        <textarea id="editor" spellcheck="false" placeholder="ここにコードを入力...">disp("kaiprogran 起動成功！")
-var = 1
-var2 = 0
-if (var = var2)
-  disp("ここは通りません")
+    </section>
+
+    <!-- 計算・条件分岐 -->
+    <section id="logic">
+        <h2>02. 計算と判断 (if/else)</h2>
+        <p>日本語変数を使って計算し、<code>if</code>で判断を行います。最後は必ず<code>}}</code>で閉じます。</p>
+        <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+            <div class="code-block">A = 10
+B = 20
+合計 = cal(A "+" B)
+if (合計 = 30)
+  disp("正解！")
 }}
 else
-  disp("判定成功！")
-}}
+  ere("ちがうよ")
+}}</div>
+        </div>
+        <div class="alert">※比較は「=」を1つだけ使います。</div>
+    </section>
 
-keypush"Z" { disp("Zキーが押されました！") }</textarea>
+    <!-- JSお取り寄せ・コピー -->
+    <section id="advanced">
+        <h2>03. 応用：JS連携とコピー</h2>
+        <p>JavaScriptのパワーを <code>JS,</code> で取り寄せ、<code>icp</code> で自由にデータを複製します。</p>
+        <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+            <div class="code-block">++StartScript++
+this.rand = Math.floor(Math.random() * 10);
+++endscript++
+disp(JS,rand)
+
+icp("""script""") // 全コードをコピー
+icp("""log""")    // 全ログをコピー</div>
+        </div>
+    </section>
+
+    <!-- ゲーム制作ガイド -->
+    <section id="game">
+        <h2>04. ゲーム制作ガイド</h2>
+        
+        <h3>計算クイズゲーム</h3>
+        <div class="step"><code>ent</code> で回答をもらい、<code>if</code> で判定する基本構成です。</div>
+        <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+            <div class="code-block">disp("3 + 5 は？")
+ent,ans
+if (ans = 8)
+  disp("正解！")
+}}</div>
+        </div>
+
+        <h3>タイピングゲーム</h3>
+        <div class="step"><code>keypush</code> でキー入力を、<code>{{ }}</code> で時間制限を作ります。</div>
+        <div class="code-wrapper">
+            <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+            <div class="code-block">disp("3秒以内に[Z]を押せ！")
+{{ "3" }}
+keypush"Z" {
+  disp("成功！")
+}</div>
+        </div>
+    </section>
+
+    <!-- 作者からのメッセージ -->
+    <section id="creator-message" style="background: rgba(10, 132, 255, 0.05); border: 1px solid var(--accent); text-align: center;">
+        <h2 style="border: none; padding: 0; margin-bottom: 50px; font-size: 2.5rem;">Message from Creator</h2>
+        <div style="max-width: 600px; margin: 0 auto; text-align: left; line-height: 2.2; font-size: 1.1rem; color: #e6edf3;">
+            <p>作者より</p>
+            <p>私はjavascriptやHTMLなどの開発に興味を持って始めました<br>
+            最初は覚えるのが大変でした<br>
+            ただししばらくしたら慣れて来ました</p>
+
+            <p>皆さんはscratchというプログラミング言語をご存知ですか?<br>
+            ブロックでプログラムを組む直感的でやりやすいプログラミング言語です</p>
+
+            <p>いろいろなものを作ってるうちにいろいろな発見がありました<br>
+            その発見をしてるうちにふと思ったのです<br>
+            「わたしにもプログラミング言語が作れないか」</p>
+
+            <p>そう思いました。みなさん 楽しんでいただけてるでしょうか<br>
+            なるべく簡単に 直感的に触れる言語です<br>
+            少し軽いものしかできませんがこれからも機能を増やしていくつもりです</p>
+
+            <p>楽しんでプログラミングしてくださいね</p>
+            
+            <p style="text-align: right; font-size: 1.8rem; color: var(--accent); margin-top: 40px;">
+                作者より
+            </p>
+        </div>
+    </section>
+
+    <div style="text-align: center; margin-top: 50px;">
+        <a href="https://2015kaito8169.github.io" class="btn-link">IDEを起動する</a>
     </div>
-    <div class="log-section"><div id="logArea"></div></div>
+
 </div>
 
-<div id="helpModal">
-    <button onclick="toggleHelp()" style="float:right; background:red; color:white; padding:5px 10px; border-radius:5px; border:none;">閉じる</button>
-    <h2 style="color:var(--accent);">kaiprogran リファレンス</h2>
-    <div style="text-align:left; line-height:1.8; font-size:14px; color:#ddd; padding:10px;">
-        <p>● <b>disp("内容")</b> : ログに出力（""なしは変数名）</p>
-        <p>● <b>cav("警告") / ere("エラー")</b> : 黄色と赤色のログを出力</p>
-        <p>● <b>if (A = B) / else / }}</b> : 条件分岐。最後は必ず }} で閉じる</p>
-        <p>● <b>cal("式")</b> : 計算。 cal(var1 "+" var2) のように変数結合可能</p>
-        <p>● <b>JS,変数</b> : ++StartScript++ 内の変数をお取り寄せ</p>
-        <p>● <b>ent,変数</b> : 入力欄を表示し、結果を変数に保存</p>
-        <p>● <b>{{ "秒数" }}</b> : プログラムを一時停止</p>
-        <p>● <b>keypush"A" { 命令 }</b> : キーが押された瞬間に中身を実行</p>
-        <p>● <b>icp("内容")</b> : クリップボードにコピー（"""log"""で全ログ）</p>
-    </div>
-    <hr style="border:0; border-top:1px solid #333; margin:15px 0;">
-    <button class="more-btn" onclick="window.open('https://2015kaito8169.github.io', '_blank')">もっと詳しく (公式サイト)</button>
-</div>
+<footer>
+    <p>&copy; 2024 kaiprogran | Developed by kaito</p>
+</footer>
 
 <script>
-    let vars = {}; let lists = {}; let jsScope = {};
-    const logArea = document.getElementById('logArea');
-    const editor = document.getElementById('editor');
-
-    function print(msg, cls="normal") {
-        const d = document.createElement('div'); d.className = cls; d.textContent = `> ${msg}`;
-        logArea.appendChild(d); logArea.scrollTop = logArea.scrollHeight;
-    }
-
-    function toggleHelp() { const m = document.getElementById('helpModal'); m.style.display = m.style.display === 'block' ? 'none' : 'block'; }
-    function saveData(n) { localStorage.setItem('kp_s'+n, editor.value); alert(`スロット${n}に保存しました`); }
-    function loadData(n) { const d = localStorage.getItem('kp_s'+n); if(d){editor.value=d; alert(`スロット${n}を読み込みました`);}else{alert("空です");} }
-    async function copyRaw(t) { await navigator.clipboard.writeText(t==='log'?logArea.innerText:editor.value); alert(t+"をコピーしました"); }
-
-    async function runKaiPro() {
-        logArea.innerHTML = ""; vars = {}; lists = {}; jsScope = {};
-        const lines = editor.value.split('\n');
-        let skip = false; let ifRes = false;
-
-        for (let i = 0; i < lines.length; i++) {
-            let l = lines[i].trim();
-            if (!l || l.startsWith("com//")) continue;
-            if (skip && !l.startsWith("else") && !l.includes("}}")) continue;
-
-            let hit = false;
-
-            // disp / ere / cav
-            if (l.startsWith("disp(") || l.startsWith("ere(") || l.startsWith("cav(")) {
-                let t = l.startsWith("disp") ? "normal" : (l.startsWith("ere") ? "error" : "warn");
-                let c = l.match(/\((.*)\)/);
-                if(c){
-                    let inner = c[1].replace(/"/g,"");
-                    let out = inner.startsWith("JS,") ? (jsScope[inner.split(",")[1]] || "undefined") : (vars[inner] !== undefined ? vars[inner] : inner);
-                    print(out, t); hit = true;
-                }
-            }
-            // icp (コピー)
-            else if (l.startsWith("icp(")) {
-                let inner = l.match(/\((.*)\)/);
-                if(inner){
-                    let target = inner[1]; let txt = "";
-                    if(target === '"""log"""') txt = logArea.innerText;
-                    else if(target === '"""script"""') txt = editor.value;
-                    else if(target.includes('""log"""')) { let idx = target.match(/\d+/); txt = logArea.innerText.split('\n')[idx] || ""; }
-                    else { let k = target.replace(/"/g,""); txt = vars[k] !== undefined ? vars[k] : k; }
-                    navigator.clipboard.writeText(txt);
-                }
-                hit = true;
-            }
-            // if / else / }}
-            else if (l.startsWith("if")) {
-                let m = l.match(/\((.*)\)/);
-                if(m){
-                    let cond = m[1].split("=");
-                    let L = vars[cond[0].trim()] || cond[0].trim().replace(/"/g,"");
-                    let R = vars[cond[1].trim()] || cond[1].trim().replace(/"/g,"");
-                    if(L == R){ skip = false; ifRes = true; } else { skip = true; ifRes = false; }
-                }
-                hit = true;
-            }
-            else if (l.startsWith("else")) { skip = ifRes; hit = true; }
-            else if (l.includes("}}")) { skip = false; hit = true; }
-            // keypush
-            else if (l.startsWith("keypush")) {
-                let kMatch = l.match(/"([^"]+)"/);
-                if(kMatch){
-                    let key = kMatch[1].toUpperCase();
-                    let actionMatch = l.match(/\{(.*)\}/);
-                    print(`${key}キー入力待機中...`, "warn");
-                    window.addEventListener('keydown', (e) => {
-                        if (e.key.toUpperCase() === key) {
-                            if(actionMatch) {
-                                let action = actionMatch[1].trim();
-                                if(action.startsWith("disp(")) print(action.match(/\("(.*)"\)/)[1]);
-                            } else { print(`${key}入力成功！`, "normal"); }
-                        }
-                    }, { once: true });
-                }
-                hit = true;
-            }
-            // JSモード
-            else if (l.startsWith("++StartScript++")) {
-                let js = ""; i++;
-                while(i < lines.length && !lines[i].includes("++endscript++")) { js += lines[i] + "\n"; i++; }
-                try {
-                    let f = new Function('scope', js + "\nreturn this;");
-                    Object.assign(jsScope, f.call(window, jsScope));
-                } catch(e) { print(e.message, "error"); }
-                hit = true;
-            }
-            // 代入 / cal
-            else if (l.includes("=")) {
-                let p = l.split("="); let n = p[0].trim(); let v = p[1].trim();
-                if (v.startsWith("cal(")) {
-                    let expMatch = v.match(/\((.*)\)/);
-                    if(expMatch){
-                        let exp = expMatch[1].replace(/JS,([a-z0-9]+)/gi, (m,v)=>jsScope[v]||0)
-                                     .replace(/([ぁ-んァ-ヶー一-龠a-z0-9]+)/gi, m => vars[m] !== undefined ? vars[m] : m).replace(/"/g,"");
-                        try { vars[n] = eval(exp); } catch(e) { print("計算不可", "error"); }
-                    }
-                } else { vars[n] = v.replace(/"/g, ""); }
-                hit = true;
-            }
-            // その他
-            else if (l.startsWith("{{") || l.startsWith("ent") || l.startsWith("{") || l === "{" || l === "}") {
-                if(l.startsWith("{{")){ let s = l.match(/\d+/); await new Promise(r => setTimeout(r, parseInt(s) * 1000)); }
-                if(l.startsWith("ent")){ let r = prompt("入力"); let vName = l.split(",")[1]; if(vName) vars[vName.trim()]=r; print(r); }
-                hit = true;
-            }
-
-            if (!hit && !skip) print(`エラー: 「${l}」は意味不明な言語です`, "error");
-        }
+    function copyCode(btn) {
+        const code = btn.nextElementSibling.innerText;
+        navigator.clipboard.writeText(code).then(() => {
+            const originalText = btn.innerText;
+            btn.innerText = "OK!";
+            setTimeout(() => { btn.innerText = originalText; }, 1500);
+        });
     }
 </script>
+
 </body>
 </html>
